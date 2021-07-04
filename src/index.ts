@@ -1,1 +1,1 @@
-export const CustomPermutation = (list: any[]) => `${list}`;
+export { default } from './CustomPermutation';
