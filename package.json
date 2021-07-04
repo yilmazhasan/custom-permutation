@@ -1,0 +1,20 @@
+{
+  "name": "custom-permutation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yilmazhasan/custom-permutation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yilmazhasan/custom-permutation/issues"
+  },
+  "homepage": "https://github.com/yilmazhasan/custom-permutation#readme"
+}
