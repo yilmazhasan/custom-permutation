@@ -10,7 +10,7 @@ export class Utils {
   }
 
 
-  static shuffle(array: [], swapTimes = array.length) {
+  static shuffle(array: any[], swapTimes = array.length) {
     var currentIndex = swapTimes as number;
     var temporaryValue, randomIndex;
 
