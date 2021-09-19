@@ -69,7 +69,6 @@ test('Full Example', () => {
     let next;
     while (true) {
         next = customPerm.customPermGen.next();
-        console.log(next);
         if (next) {
             perms.push(next);
         } else {
