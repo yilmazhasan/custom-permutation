@@ -1,7 +1,7 @@
 # Custom Permutation Generator
 
 ```typescript
-CustomPermutation(elList: array, choices: { index: array }, nonChoices: { index: array })
+CustomPermutation(elList:[els...], choices:{ index: [els...]] }, nonChoices:{ index: [els...]] })
 ```
 
 _example:_ `CustomPermutation(['a', 'b', 'c'], {1: ['a', 'b']}, {0: ['a']})`
@@ -9,6 +9,7 @@ _example:_ `CustomPermutation(['a', 'b', 'c'], {1: ['a', 'b']}, {0: ['a']})`
 _Meaning:_ Permutate 3 elements which are 'a', 'b' and 'c' with below rules
 
 __choices rule: {1: ['a', 'b']}__   For index=1 there can be just 'a' and 'b'
+
 __nonChoices rule: {0: ['a']}__     For index=0 ther can not be element 'a'
 
 _Note: given index are considered as 0 based: [index=0, index=1, etc]_
