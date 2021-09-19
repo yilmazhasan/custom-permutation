@@ -1,5 +1,4 @@
-import * as  G from 'generatorics';
-
+var G = require('generatorics');
 
 export class Permutation {
 
