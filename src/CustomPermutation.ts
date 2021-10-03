@@ -23,4 +23,21 @@ export default class CustomPermutation {
     this.customPermGen = new CustomPermutationGenerator(listToPermutate, choices, nonChoices, elementsOrderAbsolute, elementsOrderRelative, passFn);
   }
 
+  next() {
+    return this.customPermGen.next();
+  }
+
+  *generator() {
+    let nextPerm = null;
+
+    while (true) {
+      nextPerm = this.customPermGen.next();
+      if (nextPerm) {
+        yield nextPerm;
+      } else {
+        break;
+      }
+    }
+  }
+
 }
