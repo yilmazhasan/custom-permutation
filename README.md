@@ -9,9 +9,9 @@ _example:_\
 
 _Meaning:_ Permutate 3 elements which are 'a', 'b' and 'c' with below rules
 
-__1. choices rule:__ `{ 1: ['a', 'b'] }`\
+__1. choices rule:__ `{ 1: ['a', 'b'] }`
 
-    At index=1 there can be just 'a' or 'b'\
+    At index=1 there can be just 'a' or 'b'
 
 __2. nonChoices rule:__ `{ 0: ['a'] }`
 
@@ -30,16 +30,27 @@ Let's see all permutations, and which ones are valid and not.
 - `['c', 'b', 'a']` : ok
 
 So there is just 3 result should be generated for this parameters.
-
 ```javascript
     let customPerm = new CustomPermutation(['a', 'b', 'c'], { 1: ['a', 'b'] }, { 0: ['a'] });
-    let next;
+    let gen = customPerm.generator();
     while (true) {
-        next = customPerm.customPermGen.next();
-        console.log(next);
+        let next = gen.next();
+        if (next.done) {
+            break;
+        }
+        console.log(next.value)
+    }
+
+```
+or
+```javascript
+    let customPerm = new CustomPermutation(['a', 'b', 'c'], { 1: ['a', 'b'] }, { 0: ['a'] });
+    while (true) {
+        let next = customPerm.next();
         if (!next) {
             break;
         }
+        console.log(next)
     }
 ```
 
