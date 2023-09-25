@@ -1,3 +1,6 @@
+# Fixed bugs
+25.09.2023 - unChoices did not reflect always, fixed now.
+
 # Custom Permutation Generator
 
 ## 1. require / import
