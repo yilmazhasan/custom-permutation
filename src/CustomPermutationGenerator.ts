@@ -50,14 +50,15 @@ export class CustomPermutationGenerator {
     // not make for choicesByIndex list so that options be little
     this.extendIndexesOfSameElements(this.nonChoicesByIndex, indexesOfSameElements);
 
-    let choicesByIndexInSetFiltered = Object.keys(this.choicesByIndexInSet).filter(x => elementsIndexRel.indexOf(Number(x)) >= 0)
-      .map(x => this.choicesByIndexInSet[x]);
+    // let choicesByIndexInSetFiltered = Object.keys(this.choicesByIndexInSet).filter(x => elementsIndexRel.indexOf(Number(x)) >= 0)
+    //   .map(x => this.choicesByIndexInSet[x]);
 
     // Same like above
     // for(let i = 0; i < this.elementsIndexRel.length; i++) {
     //   choicesByIndexInSetFiltered[i] = this.choicesByIndexInSet[elementsIndexRel[i]]
     // }
-    this.permutationGenOfSet = new PermutationGeneratorForSet(elementList, indexList, choicesByIndexInSetFiltered, indexesOfSameElements,
+
+    this.permutationGenOfSet = new PermutationGeneratorForSet(elementList, indexList, this.choicesByIndexInSet, indexesOfSameElements,
       elementsOrderAbs, passFunction, randomizechoices);
   }
 
@@ -127,19 +128,16 @@ export class CustomPermutationGenerator {
   removeNonChoicesIndexes() {
 
     var allIndexes = Array(this.elementList.length).fill(0).map((x, i) => i);
-
     Object.keys(this.nonChoicesByIndex).forEach(key => {
       var indexes = allIndexes.slice();
       for (let j = 0; j < this.nonChoicesByIndex[key].length; j++) {
         var indexesToRemove = this.getAllIndexesOfElementInList(this.nonChoicesByIndex[key][j], this.elementList);
         indexes = indexes.filter(x => indexesToRemove.indexOf(x) < 0);
+
       }
       this.choicesByIndexInSet[key] = indexes;
-      // ? OR
-      // this.choicesByIndex[key] = indexes; // but not working
 
     });
-
   }
 
   getAllIndexesOfElementInList(el, list) {
