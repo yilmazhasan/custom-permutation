@@ -107,7 +107,7 @@ export class PermutationGeneratorForSet {
 
   next() {
     let nextPerm = this.getNextPerm();
-    if (nextPerm) {
+    if (nextPerm?.length > 0) {
       while (nextPerm.filter(x => x || x === 0).length < nextPerm.length) {
         nextPerm = this.getNextPerm();
         if (!nextPerm || nextPerm.length === 0) {

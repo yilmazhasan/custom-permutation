@@ -13,7 +13,7 @@ export default class CustomPermutation {
   ) {
 
     if (!elementsOrderAbsolute?.length) {
-      elementsOrderAbsolute = new Array(listToPermutate.length, 0).map((x, i) => i);
+      elementsOrderAbsolute = Array.from(listToPermutate).map((x, i) => i);
     }
 
     this.customPermGen = new CustomPermutationGenerator(

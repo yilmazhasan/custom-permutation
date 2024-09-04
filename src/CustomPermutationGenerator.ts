@@ -124,22 +124,9 @@ export class CustomPermutationGenerator {
   }
 
   next() {
-    let nextDistinct;
+      let nextDistinctPerm = this.nextDistinct();
 
-    while (true) {
-      nextDistinct = this.nextDistinct();
-      if (nextDistinct && !nextDistinct.done) {
-        if (nextDistinct.value) {
-          return nextDistinct.value;
-        }
-        else {
-          return [];
-        }
-      } else if (nextDistinct && nextDistinct.done) {
-        return null;// PermResultTypeEnum.ENDOFPERMUTATION;
-      }
-    }
-
+      return !nextDistinctPerm.done ? nextDistinctPerm.value : null;
   }
 
   nextDistinct() {
@@ -162,7 +149,7 @@ export class CustomPermutationGenerator {
         this.historyHashes.push(hash);
         this.cursor++;
       } else {
-        return false;
+        return this.nextDistinct();
       }
     }
 
