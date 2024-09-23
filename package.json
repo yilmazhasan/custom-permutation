@@ -1,6 +1,6 @@
 {
   "name": "custom-permutation",
-  "version": "1.0.7",
+  "version": "1.1.1",
   "description": "Permutation generator with custom options.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
