@@ -4,13 +4,13 @@ let customPerm = new CustomPermutation([], {}, {});
 let count = 0;
 
 while (true) {
-    let next = customPerm.next();
+  let next = customPerm.next();
 
-    if (!next) {
-        break;
-    }
+  if (!next) {
+    break;
+  }
 
-    count++;
+  count++;
 }
 
 module.exports = CustomPermutation;

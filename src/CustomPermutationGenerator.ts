@@ -1,7 +1,6 @@
 import { PermutationGeneratorForSet } from './PermutationGeneratorForSet';
 
 export class CustomPermutationGenerator {
-
   set: any[];
   permutationGenOfSet: any;
   nextIndexList: number[] = [];
@@ -14,17 +13,19 @@ export class CustomPermutationGenerator {
   constructor(
     private elementList: any[],
     private choicesByIndex: object = {},
-    private nonChoicesByIndex: object = {}, 
+    private nonChoicesByIndex: object = {},
     private elementsOrderAbsolute?: any[],
-    private passFunction?: (items: any[]) => boolean) {
-
-    const indexList = Array(elementList.length).fill(0).map((_, ind) => ind);
+    private passFunction?: (items: any[]) => boolean,
+  ) {
+    const indexList = Array(elementList.length)
+      .fill(0)
+      .map((_, ind) => ind);
     this.set = Array.from(new Set(elementList));
 
     const indexesOfSameElements = {};
 
     elementList.forEach((element, i) => {
-      indexesOfSameElements[i] = []
+      indexesOfSameElements[i] = [];
 
       elementList.forEach((el, j) => {
         if (element === el) {
@@ -46,17 +47,26 @@ export class CustomPermutationGenerator {
 
     this.completeRestOfIndexes();
 
-    this.permutationGenOfSet = new PermutationGeneratorForSet(elementList, indexList, this.finalChoicesByIndexInSet, indexesOfSameElements, this.elementsOrderAbsolute, passFunction);
+    this.permutationGenOfSet = new PermutationGeneratorForSet(
+      elementList,
+      indexList,
+      this.finalChoicesByIndexInSet,
+      indexesOfSameElements,
+      this.elementsOrderAbsolute,
+      passFunction,
+    );
   }
 
   removeNonChoicesIndexes() {
-    const allIndexes = Array(this.elementList.length).fill(0).map((x, i) => i);
-    Object.keys(this.nonChoicesByIndex).forEach(key => {
+    const allIndexes = Array(this.elementList.length)
+      .fill(0)
+      .map((x, i) => i);
+    Object.keys(this.nonChoicesByIndex).forEach((key) => {
       let indexes = allIndexes.slice();
 
       for (const el of this.nonChoicesByIndex[key]) {
         const indexesToRemove = this.getAllIndexesOfElementInList(el, this.elementList);
-        indexes = indexes.filter(x => indexesToRemove.indexOf(x) < 0);
+        indexes = indexes.filter((x) => indexesToRemove.indexOf(x) < 0);
       }
 
       this.finalChoicesByIndexInSet[key] = indexes;
@@ -65,7 +75,7 @@ export class CustomPermutationGenerator {
 
   setChoicesIndexesInSet() {
     for (const key in this.choicesByIndex) {
-      if(!this.choicesByIndex[key]) {
+      if (!this.choicesByIndex[key]) {
         continue;
       }
 
@@ -88,7 +98,9 @@ export class CustomPermutationGenerator {
   }
 
   completeRestOfIndexes() {
-    const allIndexes = Array(this.elementList.length).fill(0).map((x, i) => i);
+    const allIndexes = Array(this.elementList.length)
+      .fill(0)
+      .map((x, i) => i);
 
     for (let i = 0; i < this.elementList.length; i++) {
       if (!this.finalChoicesByIndexInSet[i]) {
@@ -98,7 +110,6 @@ export class CustomPermutationGenerator {
   }
 
   extendIndexesOfSameElements(choicesByIndex, indexesOfSameElements) {
-
     if (!choicesByIndex) {
       return;
     }
@@ -109,7 +120,7 @@ export class CustomPermutationGenerator {
         for (const anotherKey of choicesByIndex[key]) {
           clone = choicesByIndex[key].slice();
           if ((indexesOfSameElements[anotherKey] || []).indexOf(anotherKey) >= 0) {
-            clone = clone.concat(indexesOfSameElements[anotherKey])
+            clone = clone.concat(indexesOfSameElements[anotherKey]);
           }
         }
         choicesByIndex[key] = clone ? clone.filter((el, idx) => clone.indexOf(el) === idx) : [];
@@ -118,19 +129,19 @@ export class CustomPermutationGenerator {
   }
 
   prev() {
-    if (this.cursor > 1) {   // cursor-1 is current, cursor-2 is prev
+    if (this.cursor > 1) {
+      // cursor-1 is current, cursor-2 is prev
       return this.history[--this.cursor - 1];
     }
   }
 
   next() {
-      let nextDistinctPerm = this.nextDistinct();
+    let nextDistinctPerm = this.nextDistinct();
 
-      return !nextDistinctPerm.done ? nextDistinctPerm.value : null;
+    return !nextDistinctPerm.done ? nextDistinctPerm.value : null;
   }
 
   nextDistinct() {
-
     if (this.cursor < this.history.length) {
       return { value: this.history[this.cursor++], done: false };
     }
@@ -145,7 +156,7 @@ export class CustomPermutationGenerator {
       const hash = this.getHash(elList);
       if (this.historyHashes.indexOf(hash) < 0 && (!this.passFunction || this.passFunction(elList))) {
         this.current = elList;
-        this.history.push(elList)
+        this.history.push(elList);
         this.historyHashes.push(hash);
         this.cursor++;
       } else {
@@ -153,11 +164,11 @@ export class CustomPermutationGenerator {
       }
     }
 
-    return { done: nextPerm.done, value: elList }
+    return { done: nextPerm.done, value: elList };
   }
 
   saveCurrentToHistory() {
-    this.history.push(this.current)
+    this.history.push(this.current);
     const hash = this.getHash(this.current);
     this.historyHashes.push(hash);
     this.cursor++;
@@ -180,7 +191,7 @@ export class CustomPermutationGenerator {
 
     const elList = [];
 
-    indexes.forEach(index => {
+    indexes.forEach((index) => {
       // if(this.elementList[index]) // Can be added, but costly
       {
         elList.push(this.elementList[index]);
@@ -215,5 +226,4 @@ export class CustomPermutationGenerator {
 
     return this.history[this.cursor];
   }
-
 }

@@ -1,7 +1,6 @@
-import { CustomPermutationGenerator } from "./CustomPermutationGenerator";
+import { CustomPermutationGenerator } from './CustomPermutationGenerator';
 
 export default class CustomPermutation {
-
   customPermGen: CustomPermutationGenerator;
 
   constructor(
@@ -9,9 +8,8 @@ export default class CustomPermutation {
     private choices: object,
     private nonChoices: object,
     private elementsOrderAbsolute?: any[],
-    private passFn?: (items: any[]) => boolean
+    private passFn?: (items: any[]) => boolean,
   ) {
-
     if (!elementsOrderAbsolute?.length) {
       elementsOrderAbsolute = Array.from(listToPermutate).map((x, i) => i);
     }
@@ -21,7 +19,7 @@ export default class CustomPermutation {
       this.choices,
       this.nonChoices,
       this.elementsOrderAbsolute,
-      this.passFn
+      this.passFn,
     );
   }
 
@@ -41,5 +39,4 @@ export default class CustomPermutation {
       }
     }
   }
-
 }
