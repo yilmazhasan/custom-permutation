@@ -7,9 +7,14 @@
 
 # Custom Permutation Generator
 
-## 1. require / import
+## 1.1. `require`
 ```ts
 const CustomPermutation = require('custom-permutation')
+```
+## 1.2. ,`import`
+
+```ts
+import CustomPermutation from "custom-permutation";
 ```
 
 ## 2. Constructor
