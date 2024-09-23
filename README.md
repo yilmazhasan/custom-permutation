@@ -44,10 +44,11 @@ _Note: given index are considered as 0 based: [index=0, index=1, etc.]_
 Let's see all permutations, and which ones are valid or not.
 - `["a", "b", "c"]` : violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`
 - `["a", "c", "b"]` : violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`_
-- `["b", "a", "c"]` : [x] OK
+- `["b", "a", "c"]` : - [x] OK
 - `["b", "c", "a"]` : violates choices rule: _second element is `"c"` but `"a"` or `"b"` is desired_
-- `["c", "a", "b"]` : [x] OK
-- `["c", "b", "a"]` : [x] OK
+- `["c", "a", "b"]` : &#x2611; OK
+- `["c", "b", "a"]` : - [x] OK
+- [x] : `["c", "b", "a"]`
 
 So there are just 3 results that should be generated with this parameters.
 
