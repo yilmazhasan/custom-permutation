@@ -46,10 +46,10 @@ _Note: given index are considered as 0 based: [index=0, index=1, etc.]_
 ## 4. Result set explanation:
 
 Let's see all permutations, and which ones are valid or not.
-- [] `["a", "b", "c"]` // violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`
-- [] `["a", "c", "b"]` // violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`_
+- [ ] `["a", "b", "c"]` // violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`
+- [ ] `["a", "c", "b"]` // violates nonChoices rule: _first element is `"a"`, but shouldn't be `"a"`_
 - [x] `["b", "a", "c"]`
-- [] `["b", "c", "a"]` // violates choices rule: _second element is `"c"` but `"a"` or `"b"` is desired_
+- [ ] `["b", "c", "a"]` // violates choices rule: _second element is `"c"` but `"a"` or `"b"` is desired_
 - [x] `["c", "a", "b"]`
 - [x] `["c", "b", "a"]`
 
