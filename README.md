@@ -11,7 +11,7 @@
 ```ts
 const CustomPermutation = require('custom-permutation')
 ```
-## 1.2. ,`import`
+## 1.2. `import`
 
 ```ts
 import CustomPermutation from "custom-permutation";
@@ -98,8 +98,6 @@ while (!next.done) {
 ```
 
 ### 3. Output
-
-__Console__
 
 ```sh
 ["b", "a", "c"]
