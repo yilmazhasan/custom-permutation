@@ -27,7 +27,7 @@ CustomPermutation(elList:[els...], choices:{ index: [els...]] }, nonChoices:{ in
 _example:_
 
 ```ts
-CustomPermutation(["a", "b", "c"], {1: ["a", "b"]}, {0: ["a"]})
+CustomPermutation(["a", "b", "c"], {"1": ["a", "b"]}, {"0": ["a"]})
 ```
 
 Permutate 3 elements which are "a", "b" and "c" with below rules
