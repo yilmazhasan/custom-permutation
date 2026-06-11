@@ -29,7 +29,9 @@ export class PermutationGeneratorForSet {
         .map((el, i) => i);
     this.indexesOfSameElements =
       this.indexesOfSameElements ||
-      (Array(indexList.length).fill(1).map((el, i) => i) as unknown as Record<number, number[]>);
+      (Array(indexList.length)
+        .fill(1)
+        .map((el, i) => i) as unknown as Record<number, number[]>);
 
     if (!this.validateParameters(indexList, choicesByIndex)) {
       return;
@@ -88,9 +90,7 @@ export class PermutationGeneratorForSet {
 
     for (let i = 0; i < this.indexList.length; i++) {
       this.choicesArrays.push(
-        this.choicesByIndex?.[i]?.length
-          ? this.choicesByIndex[i].slice()
-          : this.indexList.slice(),
+        this.choicesByIndex?.[i]?.length ? this.choicesByIndex[i].slice() : this.indexList.slice(),
       );
       this.choicesArraysInitial.push(this.choicesArrays[i].slice());
     }

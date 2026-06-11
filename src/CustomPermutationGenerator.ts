@@ -141,7 +141,7 @@ export class CustomPermutationGenerator<T> {
 
   next(): T[] | null {
     const nextDistinctPerm = this.nextDistinct();
-    return !nextDistinctPerm.done ? nextDistinctPerm.value ?? null : null;
+    return !nextDistinctPerm.done ? (nextDistinctPerm.value ?? null) : null;
   }
 
   nextDistinct(): { value: T[] | undefined; done: boolean } {
