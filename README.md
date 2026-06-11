@@ -1,6 +1,6 @@
 # Custom Permutation Generator
 
-## Usage
+## 1. Usage
 
 ### 1.1. `require`
 
@@ -113,6 +113,10 @@ while (!next.done) {
 ["c", "a", "b"]
 ["c", "b", "a"]
 ```
+
+## Python version of the tool
+
+This is the python version of [custom-permutation](https://pypi.org/project/custom-permutation/) on PyPi.
 
 ## Changelog
 
