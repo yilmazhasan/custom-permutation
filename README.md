@@ -32,7 +32,7 @@ _example:_
 CustomPermutation(['a', 'b', 'c'], { '1': ['a', 'b'] }, { '0': ['a'] });
 ```
 
-Permutate 3 elements which are "a", "b" and "c" with below rules
+Permutate 3 items which are "a", "b" and "c" with below rules
 
 **`choices` rule:**
 
@@ -40,7 +40,7 @@ Permutate 3 elements which are "a", "b" and "c" with below rules
 { "1": ["a", "b"] }
 ```
 
-> At `index=1` there can only be the element `"a"` or `"b"`
+> At `index=1` there can only be the item `"a"` or `"b"`
 
 **`nonChoices` rule:**
 
@@ -48,7 +48,7 @@ Permutate 3 elements which are "a", "b" and "c" with below rules
 { "0": ["a"] }
 ```
 
-> At `index=0` there can NOT be the element `"a"`
+> At `index=0` there can NOT be the item `"a"`
 
 _Note: given index are considered as 0 based: [index=0, index=1, etc.]_
 
@@ -62,16 +62,16 @@ _Note: given index are considered as 0 based: [index=0, index=1, etc.]_
 
 Let's check all permutations, and see which ones are and are not valid.
 
-|    Permutation    | Is valid |  Violates  |                  Description                   |
-| :---------------: | :------: | :--------: | :--------------------------------------------: |
-| `["a", "b", "c"]` |    No    | nonChoices |         _first elemen can't be `"a"`_          |
-| `["a", "c", "b"]` |    No    | nonChoices |         _first elemen can't be `"a"`_          |
-| `["b", "a", "c"]` |   Yes    |     -      |                       -                        |
-| `["b", "c", "a"]` |    No    |  choices   | _second element is asked to be `"a"` or `"b"`_ |
-| `["c", "a", "b"]` |   Yes    |     -      |                       -                        |
-| `["c", "b", "a"]` |   Yes    |     -      |                       -                        |
+|    Permutation    |  Violates  |              Description               |
+| :---------------: | :--------: | :------------------------------------: |
+| `["a", "b", "c"]` | nonChoices |         _first can't be `"a"`_         |
+| `["a", "c", "b"]` | nonChoices |         _first can't be `"a"`_         |
+| `["b", "a", "c"]` |     -      |                   -                    |
+| `["b", "c", "a"]` |  choices   | _second is asked to be `"a"` or `"b"`_ |
+| `["c", "a", "b"]` |     -      |                   -                    |
+| `["c", "b", "a"]` |     -      |                   -                    |
 
-So there are just **3** results that chould be generated with these parameters.
+So there are only **3** results that chould be generated with these parameters.
 
 ## 5. Complete example
 
@@ -114,8 +114,10 @@ while (!next.done) {
 ["c", "b", "a"]
 ```
 
-## Fixed bugs
+## Changelog
 
-11.06.2026 - Better typing implemented and more test coverage added.
-23.09.2024 - Edge cases are handled and the codespace is simplified.
-25.09.2023 - unChoices did not reflect always, fixed now.
+- 11.06.2026 - Better typing implemented and more test coverage added.
+
+- 23.09.2024 - Edge cases are handled and the codespace is simplified.
+
+- 25.09.2023 - unChoices did not reflect always, fixed now.
