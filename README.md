@@ -1,22 +1,14 @@
-# Version
-
-1.1.1
-
-# Fixed bugs
-
-11.06.2026 - Better typing implemented and more test coverage added.
-23.09.2024 - Edge cases are handled and the codespace is simplified.
-25.09.2023 - unChoices did not reflect always, fixed now.
-
 # Custom Permutation Generator
 
-## 1.1. `require`
+## Usage
+
+### 1.1. `require`
 
 ```ts
 const CustomPermutation = require('custom-permutation');
 ```
 
-## 1.2. `import`
+### 1.2. `import`
 
 ```ts
 import CustomPermutation from 'custom-permutation';
@@ -32,7 +24,7 @@ CustomPermutation(
 )
 ```
 
-## 3. Usage explanation
+## 3. Usage explanied
 
 _example:_
 
@@ -83,15 +75,15 @@ So there are just **3** results that chould be generated with these parameters.
 
 ## 5. Complete example
 
-### 1. Create object from `CustomPermutation` class
+### 5.1. Create object from `CustomPermutation` class
 
 ```ts
 let customPerm = new CustomPermutation(['a', 'b', 'c'], { '1': ['a', 'b'] }, { '0': ['a'] });
 ```
 
-### 2. Get next value
+### 5.2. Get next value
 
-#### 2.1. With `next`
+#### 5.2.1. With `next`
 
 ```ts
 let next = customPerm.next();
@@ -102,7 +94,7 @@ while (next) {
 }
 ```
 
-#### 2.2. With `generator`
+#### 5.2.2. With `generator`
 
 ```ts
 let generator = customPerm.generator();
@@ -121,3 +113,9 @@ while (!next.done) {
 ["c", "a", "b"]
 ["c", "b", "a"]
 ```
+
+## Fixed bugs
+
+11.06.2026 - Better typing implemented and more test coverage added.
+23.09.2024 - Edge cases are handled and the codespace is simplified.
+25.09.2023 - unChoices did not reflect always, fixed now.
