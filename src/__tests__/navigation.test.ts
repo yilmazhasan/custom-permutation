@@ -1,6 +1,6 @@
 import CustomPermutation from '../../src/CustomPermutation';
 
-function collectAll(cp: CustomPermutation): any[][] {
+function collectAll<T>(cp: CustomPermutation<T>): T[][] {
   const perms: any[][] = [];
   let n: any;
   while ((n = cp.next())) perms.push(n);
@@ -65,7 +65,7 @@ describe('prev', () => {
 
   test('after prev(), next() re-returns the permutation that was current before going back', () => {
     const cp = new CustomPermutation(['a', 'b', 'c'], {}, {});
-    const first = cp.next();
+    cp.next();
     const second = cp.next();
     cp.customPermGen.prev();
     expect(cp.next()).toEqual(second);

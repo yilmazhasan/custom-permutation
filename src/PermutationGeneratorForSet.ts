@@ -1,23 +1,25 @@
+type ChoiceEntry = { index: number; length: number };
+
 export class PermutationGeneratorForSet {
-  choicesArraysInitial = []; // possible choices for each element for requested permutations
-  choicesArrays = []; // possible choices for each element for requested permutations
+  choicesArraysInitial: number[][] = [];
+  choicesArrays: number[][] = [];
   size = 0;
-  currentIndsOfChoices = []; // indice array of current perm to compose
-  currentElInd = 0; // indice of current elemet to add in perm list
-  newPerm = [];
-  initialIndexList = []; // original set for new permutation
+  currentIndsOfChoices: number[] = [];
+  currentElInd = 0;
+  newPerm: (number | null)[] = [];
+  initialIndexList: number[] = [];
 
-  indexesAndChoicesCountsSortedByLength;
-  indexesAndChoicesCounts: any[];
+  indexesAndChoicesCountsSortedByLength: ChoiceEntry[] = [];
+  indexesAndChoicesCounts: ChoiceEntry[] = [];
 
-  visitedDict = {};
+  visitedDict: Record<number, boolean> = {};
 
   constructor(
     private elementList: any[],
-    private indexList: any[],
-    private choicesByIndex?: object,
-    private indexesOfSameElements?,
-    private actualOrderOfElements?: any[],
+    private indexList: number[],
+    private choicesByIndex?: Record<string, number[]>,
+    private indexesOfSameElements?: Record<number, number[]>,
+    private actualOrderOfElements?: number[],
     private passFunction?: (items: any[]) => boolean,
   ) {
     this.actualOrderOfElements =
@@ -27,9 +29,7 @@ export class PermutationGeneratorForSet {
         .map((el, i) => i);
     this.indexesOfSameElements =
       this.indexesOfSameElements ||
-      Array(indexList.length)
-        .fill(1)
-        .map((el, i) => i);
+      (Array(indexList.length).fill(1).map((el, i) => i) as unknown as Record<number, number[]>);
 
     if (!this.validateParameters(indexList, choicesByIndex)) {
       return;
@@ -46,15 +46,15 @@ export class PermutationGeneratorForSet {
     this.init();
   }
 
-  isNewPermutationPassingFunction(currentEl, elIndInPerm) {
+  isNewPermutationPassingFunction(currentEl: number, elIndInPerm: number): boolean {
     const newPerm = this.newPerm.slice();
     newPerm[elIndInPerm] = currentEl;
 
     const actualOrderedNewPerm = this.revertResultPermToInitialOrder(newPerm);
 
     if (this.passFunction) {
-      const elArray = [];
-      actualOrderedNewPerm.forEach((elInd, i) => (elArray[i] = this.elementList[elInd]));
+      const elArray: any[] = [];
+      actualOrderedNewPerm.forEach((elInd, i) => (elArray[i] = this.elementList[elInd!]));
       const passed = this.passFunction(elArray.filter((x) => x !== undefined && x !== null)); // Remove nulls, since some array elements are undefined when building
       return passed;
     }
@@ -63,15 +63,15 @@ export class PermutationGeneratorForSet {
   }
 
   // Change choice arrays elements order to take low choices front to place them firstly
-  reorderListAndChoicesAccordingToChoicesCount() {
+  reorderListAndChoicesAccordingToChoicesCount(): void {
     this.indexesAndChoicesCounts = [];
     this.choicesArrays.forEach((list, ind) => this.indexesAndChoicesCounts.push({ index: ind, length: list.length }));
 
     this.indexesAndChoicesCountsSortedByLength = this.indexesAndChoicesCounts
       .slice()
       .sort((el1, el2) => (el1.length < el2.length ? -1 : el1.length === el2.length && el1.index < el2.index ? -1 : 1));
-    const newChoicesArray = [];
-    const newSet = [];
+    const newChoicesArray: number[][] = [];
+    const newSet: number[] = [];
 
     for (let i = 0; i < this.indexesAndChoicesCountsSortedByLength.length; i++) {
       newChoicesArray[i] = this.choicesArrays[this.indexesAndChoicesCountsSortedByLength[i].index];
@@ -82,13 +82,13 @@ export class PermutationGeneratorForSet {
     this.choicesArraysInitial = JSON.parse(JSON.stringify(this.choicesArrays));
   }
 
-  initChoicesArray() {
+  initChoicesArray(): void {
     this.choicesArrays = [];
     this.choicesArraysInitial = [];
 
     for (let i = 0; i < this.indexList.length; i++) {
       this.choicesArrays.push(
-        this.choicesByIndex[i] && this.choicesByIndex[i].length
+        this.choicesByIndex?.[i]?.length
           ? this.choicesByIndex[i].slice()
           : this.indexList.slice(),
       );
@@ -96,12 +96,12 @@ export class PermutationGeneratorForSet {
     }
   }
 
-  init() {
+  init(): void {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.choicesArrays[i].length; j++) {
         if (this.newPerm.indexOf(this.choicesArrays[i][j]) < 0) {
           this.newPerm[i] = this.choicesArrays[i][j];
-          this.visitedDict[this.newPerm[i]] = true; // used
+          this.visitedDict[this.newPerm[i]!] = true; // used
           this.currentIndsOfChoices[i] = j;
           break;
         }
@@ -109,29 +109,29 @@ export class PermutationGeneratorForSet {
     }
 
     this.currentIndsOfChoices[this.size - 1] = -1;
-    this.visitedDict[this.newPerm[this.size - 1]] = false;
+    this.visitedDict[this.newPerm[this.size - 1]!] = false;
     this.newPerm[this.size - 1] = null;
   }
 
-  next() {
+  next(): { done: boolean; value?: number[] } {
     let nextPerm = this.getNextPerm();
-    if (nextPerm?.length > 0) {
-      while (nextPerm.filter((x) => x || x === 0).length < nextPerm.length) {
-        nextPerm = this.getNextPerm();
-        if (!nextPerm || nextPerm.length === 0) {
-          return { done: true };
-        }
-      }
-
-      return { done: false, value: this.revertResultPermToInitialOrder(nextPerm) };
-    } else {
+    if (!nextPerm || nextPerm.length === 0) {
       return { done: true };
     }
+
+    while (nextPerm.filter((x) => x || x === 0).length < nextPerm.length) {
+      nextPerm = this.getNextPerm();
+      if (!nextPerm || nextPerm.length === 0) {
+        return { done: true };
+      }
+    }
+
+    return { done: false, value: this.revertResultPermToInitialOrder(nextPerm) as number[] };
   }
 
-  getNextPerm() {
+  getNextPerm(): (number | null)[] | undefined {
     for (let i = this.size - 1; i >= 0 && i < this.size; i++) {
-      let choicesArray = [];
+      let choicesArray: number[] = [];
 
       choicesArray = this.choicesArraysInitial[i].filter((x) => !this.visitedDict[x]);
 
@@ -149,18 +149,23 @@ export class PermutationGeneratorForSet {
         }
       } else {
         this.newPerm[i] = el;
-        this.visitedDict[this.newPerm[i]] = true;
+        this.visitedDict[el] = true;
       }
     }
 
     return this.newPerm.slice();
   }
 
-  goBack(newPerm, choicesArrayWithIndexes, selectedIndexesForPerm, elInd) {
+  goBack(
+    newPerm: (number | null)[],
+    choicesArrayWithIndexes: number[][],
+    selectedIndexesForPerm: number[],
+    elInd: number,
+  ): boolean {
     if (elInd + 1 < choicesArrayWithIndexes.length) {
       choicesArrayWithIndexes[elInd + 1] = this.choicesArraysInitial[elInd + 1].slice();
       selectedIndexesForPerm[elInd + 1] = -1;
-      this.visitedDict[newPerm[elInd + 1]] = false;
+      this.visitedDict[newPerm[elInd + 1]!] = false;
       newPerm[elInd + 1] = null;
     }
 
@@ -176,9 +181,9 @@ export class PermutationGeneratorForSet {
           !this.visitedDict[choicesArrayWithIndexes[elInd][selectedIndexesForPerm[elInd]]] &&
           this.isNewPermutationPassingFunction(choicesArrayWithIndexes[elInd][selectedIndexesForPerm[elInd]], elInd)
         ) {
-          this.visitedDict[newPerm[elInd]] = false;
+          this.visitedDict[newPerm[elInd]!] = false;
           newPerm[elInd] = choicesArrayWithIndexes[elInd][selectedIndexesForPerm[elInd]];
-          this.visitedDict[newPerm[elInd]] = true;
+          this.visitedDict[newPerm[elInd]!] = true;
 
           return true;
         } else {
@@ -186,9 +191,16 @@ export class PermutationGeneratorForSet {
         }
       }
     }
+
+    return false;
   }
 
-  getAndSetPossibleNextElementForNewPerm(newPerm, choices, currentIndsInChoices, elInd) {
+  getAndSetPossibleNextElementForNewPerm(
+    newPerm: (number | null)[],
+    choices: number[],
+    currentIndsInChoices: number[],
+    elInd: number,
+  ): number | undefined {
     if (currentIndsInChoices[elInd] < 0) {
       currentIndsInChoices[elInd] = 0;
     } else {
@@ -201,33 +213,34 @@ export class PermutationGeneratorForSet {
       }
 
       newPerm[elInd] = choices[currentIndsInChoices[elInd]];
-      this.visitedDict[newPerm[elInd]] = true;
+      this.visitedDict[newPerm[elInd]!] = true;
 
       this.choicesArrays[elInd] = this.choicesArrays[elInd].filter(
         (x) =>
-          this.indexesOfSameElements[newPerm[elInd]] && this.indexesOfSameElements[newPerm[elInd]].indexOf(x) === -1,
+          this.indexesOfSameElements?.[newPerm[elInd]!] &&
+          this.indexesOfSameElements[newPerm[elInd]!].indexOf(x) === -1,
       );
 
       return choices[currentIndsInChoices[elInd]];
     } else {
-      this.visitedDict[newPerm[elInd]] = false;
+      this.visitedDict[newPerm[elInd]!] = false;
       currentIndsInChoices[elInd] = -1;
       newPerm[elInd] = null;
       return undefined;
     }
   }
 
-  validateParameters(elementSet, choicesByIndex) {
+  validateParameters(elementSet: number[], choicesByIndex?: object): boolean {
     if (!elementSet || elementSet.length === 0) {
       return false;
     }
 
     for (const key in choicesByIndex) {
-      if (!choicesByIndex[key]) {
+      if (!choicesByIndex[key as keyof typeof choicesByIndex]) {
         continue;
       }
 
-      for (const anotherKey of choicesByIndex[key]) {
+      for (const anotherKey of choicesByIndex[key as keyof typeof choicesByIndex] as number[]) {
         if (elementSet.indexOf(anotherKey) < 0) {
           return false;
         }
@@ -237,8 +250,8 @@ export class PermutationGeneratorForSet {
     return true;
   }
 
-  revertResultPermToInitialOrder(newPerm) {
-    const resultPerm = [];
+  revertResultPermToInitialOrder(newPerm: (number | null)[]): (number | null)[] {
+    const resultPerm: (number | null)[] = [];
 
     for (let i = 0; i < newPerm.length; i++) {
       resultPerm[this.indexesAndChoicesCountsSortedByLength[i].index] = newPerm[i];

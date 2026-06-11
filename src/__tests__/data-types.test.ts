@@ -1,6 +1,6 @@
 import CustomPermutation from '../../src/CustomPermutation';
 
-function collectAll(cp: CustomPermutation): any[][] {
+function collectAll<T>(cp: CustomPermutation<T>): T[][] {
   const perms: any[][] = [];
   let n: any;
   while ((n = cp.next())) perms.push(n);

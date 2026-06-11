@@ -3,7 +3,7 @@ import CustomPermutation from '../../src/CustomPermutation';
 test('Custom Permutation', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, {});
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -20,7 +20,7 @@ test('Custom Permutation', () => {
 test('Custom Permutation with same element', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c', 'c'], {}, {});
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -36,7 +36,7 @@ test('Custom Permutation with same element', () => {
 test('Custom Permutation with choices', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], { 0: ['a'] }, {});
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -53,7 +53,7 @@ test('Custom Permutation with choices', () => {
 test('Custom Permutation with non choices', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, { 0: ['a'], 1: ['b'] });
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -71,7 +71,7 @@ test('Full Example', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], { 1: ['a', 'b'] }, { 0: ['a'] });
 
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -95,7 +95,7 @@ test('Full Comparison Example I', () => {
   ];
 
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -121,7 +121,7 @@ test('Full Comparison Example II', () => {
   ];
 
   let perms: any[] = [];
-  let next: String | Number;
+  let next: any[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
