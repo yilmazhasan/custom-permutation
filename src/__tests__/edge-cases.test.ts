@@ -1,4 +1,4 @@
-import CustomPermutation from '../../lib/CustomPermutation';
+import CustomPermutation from '../../src/CustomPermutation';
 
 test('Empty list with next', () => {
   let customPerm = new CustomPermutation([], {}, {});

@@ -1,4 +1,4 @@
-import CustomPermutation from '../../lib/CustomPermutation';
+import CustomPermutation from '../../src/CustomPermutation';
 
 test('Custom Permutation', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, {});
@@ -131,8 +131,6 @@ test('Full Comparison Example II', () => {
       break;
     }
   }
-
-  console.log(perms);
 
   expect(JSON.stringify(perms)).toBe(JSON.stringify(expectedRes));
 });

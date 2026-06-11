@@ -1,4 +1,4 @@
-import CustomPermutation from '../../lib/CustomPermutation';
+import CustomPermutation from '../../src/CustomPermutation';
 
 test('next', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, {});

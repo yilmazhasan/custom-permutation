@@ -1,6 +1,6 @@
 import { PermutationGeneratorForSet } from './PermutationGeneratorForSet';
 
-export class CustomPermutationGenerator {
+export class CustomPermutationGenerator<T> {
   set: any[];
   permutationGenOfSet: any;
   nextIndexList: number[] = [];
@@ -11,11 +11,11 @@ export class CustomPermutationGenerator {
   cursor = 0;
 
   constructor(
-    private elementList: any[],
-    private choicesByIndex: object = {},
-    private nonChoicesByIndex: object = {},
-    private elementsOrderAbsolute?: any[],
-    private passFunction?: (items: any[]) => boolean,
+    private elementList: T[],
+    private choicesByIndex: Record<number, T[]>,
+    private nonChoicesByIndex: Record<number, T[]>,
+    private elementsOrderAbsolute?: number[],
+    private passFunction?: (items: T[]) => boolean,
   ) {
     const indexList = Array(elementList.length)
       .fill(0)
@@ -175,13 +175,7 @@ export class CustomPermutationGenerator {
   }
 
   getHash(elList: any[]) {
-    let hash = '';
-    for (let i = 0; i < elList.length; i++) {
-      for (let j = 0; j < i + 1; j++) {
-        hash += String(elList[i]);
-      }
-    }
-    return hash;
+    return JSON.stringify(elList);
   }
 
   getElementListByInitialListIndexes(indexes) {

@@ -1,20 +1,20 @@
 import { CustomPermutationGenerator } from './CustomPermutationGenerator';
 
-export default class CustomPermutation {
-  customPermGen: CustomPermutationGenerator;
+export default class CustomPermutation<T> {
+  customPermGen: CustomPermutationGenerator<T>;
 
   constructor(
-    private listToPermutate: any[],
-    private choices: object,
-    private nonChoices: object,
-    private elementsOrderAbsolute?: any[],
-    private passFn?: (items: any[]) => boolean,
+    private listToPermutate: T[],
+    private choices: Record<number, T[]>,
+    private nonChoices: Record<number, T[]>,
+    private elementsOrderAbsolute?: number[],
+    private passFn?: (items: T[]) => boolean,
   ) {
     if (!elementsOrderAbsolute?.length) {
       elementsOrderAbsolute = Array.from(listToPermutate).map((x, i) => i);
     }
 
-    this.customPermGen = new CustomPermutationGenerator(
+    this.customPermGen = new CustomPermutationGenerator<T>(
       this.listToPermutate,
       this.choices,
       this.nonChoices,

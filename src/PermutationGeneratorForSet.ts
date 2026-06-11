@@ -55,7 +55,7 @@ export class PermutationGeneratorForSet {
     if (this.passFunction) {
       const elArray = [];
       actualOrderedNewPerm.forEach((elInd, i) => (elArray[i] = this.elementList[elInd]));
-      const passed = this.passFunction(elArray.filter((x) => x)); // Remove nulls, since some array elements are undefined when building
+      const passed = this.passFunction(elArray.filter((x) => x !== undefined && x !== null)); // Remove nulls, since some array elements are undefined when building
       return passed;
     }
 
