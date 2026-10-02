@@ -114,11 +114,37 @@ while (!next.done) {
 ["c", "b", "a"]
 ```
 
+## 6. Command line
+
+The package also ships a `custom-permutation` command, so you can use it without writing code:
+
+```sh
+npx custom-permutation a b c --only 1=a,b --not 0=a
+```
+
+```sh
+b a c
+c a b
+c b a
+```
+
+| Option | Description |
+| --- | --- |
+| `--only <pos>=<a,b>` | Position `pos` may only hold the given elements (same as `choices`). Repeatable. |
+| `--not <pos>=<a,b>` | Position `pos` may not hold the given elements (same as `nonChoices`). Repeatable. |
+| `--limit <n>` | Stop after `n` permutations. Useful since the count grows factorially. |
+| `--format <fmt>` | `lines` (default, space separated), `json` (one array) or `csv`. |
+| `-h, --help` | Show usage. |
+
+Elements are treated as strings on the command line. The `passFn` filter is only available from code.
+
 ## Python version of the tool
 
 This is the python version of [custom-permutation](https://pypi.org/project/custom-permutation/) on PyPi.
 
 ## Changelog
+
+- 02.10.2026 - Added the `custom-permutation` command line tool.
 
 - 11.06.2026 - Better typing implemented and more test coverage added.
 
