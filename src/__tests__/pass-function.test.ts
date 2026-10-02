@@ -1,15 +1,15 @@
 import CustomPermutation from '../../src/CustomPermutation';
 
 function collectAll<T>(cp: CustomPermutation<T>): T[][] {
-  const perms: any[][] = [];
-  let n: any;
+  const perms: T[][] = [];
+  let n: T[] | null;
   while ((n = cp.next())) perms.push(n);
   return perms;
 }
 
 describe('passFn', () => {
   test('only yields permutations that satisfy the predicate', () => {
-    const startsWithA = (items: any[]) => items[0] === 'a';
+    const startsWithA = (items: string[]) => items[0] === 'a';
     const cp = new CustomPermutation(['a', 'b', 'c'], {}, {}, undefined, startsWithA);
     const perms = collectAll(cp);
     // Full perms of ['a','b','c'] = 6; those starting with 'a': ['a','b','c'], ['a','c','b']
@@ -27,7 +27,7 @@ describe('passFn', () => {
   test('passFn interacts correctly with choices constraint', () => {
     // choices: position 1 can only be 'a' or 'b'
     // passFn: first element must not be 'a'
-    const notStartsWithA = (items: any[]) => items[0] !== 'a';
+    const notStartsWithA = (items: string[]) => items[0] !== 'a';
     const cp = new CustomPermutation(['a', 'b', 'c'], { 1: ['a', 'b'] }, {}, undefined, notStartsWithA);
     const perms = collectAll(cp);
     perms.forEach((p) => {
@@ -39,7 +39,7 @@ describe('passFn', () => {
   test('passFn works correctly alongside nonChoices constraint', () => {
     // nonChoices: position 0 cannot be 'a'
     // passFn: last element must be 'c'
-    const endsWithC = (items: any[]) => items[items.length - 1] === 'c';
+    const endsWithC = (items: string[]) => items[items.length - 1] === 'c';
     const cp = new CustomPermutation(['a', 'b', 'c'], {}, { 0: ['a'] }, undefined, endsWithC);
     const perms = collectAll(cp);
     perms.forEach((p) => {

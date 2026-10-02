@@ -2,8 +2,8 @@ import CustomPermutation from '../../src/CustomPermutation';
 
 test('Custom Permutation', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, {});
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -19,8 +19,8 @@ test('Custom Permutation', () => {
 
 test('Custom Permutation with same element', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c', 'c'], {}, {});
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -35,8 +35,8 @@ test('Custom Permutation with same element', () => {
 
 test('Custom Permutation with choices', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], { 0: ['a'] }, {});
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -52,8 +52,8 @@ test('Custom Permutation with choices', () => {
 
 test('Custom Permutation with non choices', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], {}, { 0: ['a'], 1: ['b'] });
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -70,8 +70,8 @@ test('Custom Permutation with non choices', () => {
 test('Full Example', () => {
   let customPerm = new CustomPermutation(['a', 'b', 'c'], { 1: ['a', 'b'] }, { 0: ['a'] });
 
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -94,8 +94,8 @@ test('Full Comparison Example I', () => {
     ['c', 'b', 'a'],
   ];
 
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();
@@ -120,8 +120,8 @@ test('Full Comparison Example II', () => {
     ['c', 'b', 'a', 'a'],
   ];
 
-  let perms: any[] = [];
-  let next: any[] | null;
+  let perms: string[][] = [];
+  let next: string[] | null;
 
   while (true) {
     next = customPerm.customPermGen.next();

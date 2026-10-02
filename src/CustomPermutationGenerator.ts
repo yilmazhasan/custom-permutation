@@ -2,7 +2,7 @@ import { PermutationGeneratorForSet } from './PermutationGeneratorForSet';
 
 export class CustomPermutationGenerator<T> {
   set: T[];
-  permutationGenOfSet: PermutationGeneratorForSet;
+  permutationGenOfSet: PermutationGeneratorForSet<T>;
   nextIndexList: number[] = [];
   finalChoicesByIndexInSet: { [key: string]: number[] } = {};
   history: T[][] = [];
@@ -48,12 +48,12 @@ export class CustomPermutationGenerator<T> {
     this.completeRestOfIndexes();
 
     this.permutationGenOfSet = new PermutationGeneratorForSet(
-      elementList as any[],
+      elementList,
       indexList,
       this.finalChoicesByIndexInSet,
       indexesOfSameElements,
       this.elementsOrderAbsolute,
-      passFunction as ((items: any[]) => boolean) | undefined,
+      passFunction,
     );
   }
 
@@ -110,7 +110,7 @@ export class CustomPermutationGenerator<T> {
   }
 
   extendIndexesOfSameElements(
-    choicesByIndex: Record<string | number, any[]>,
+    choicesByIndex: Record<string | number, unknown[]>,
     indexesOfSameElements: Record<number, number[]>,
   ): void {
     if (!choicesByIndex) {
@@ -119,11 +119,11 @@ export class CustomPermutationGenerator<T> {
 
     for (const key in choicesByIndex) {
       if (choicesByIndex[key]) {
-        let clone: any[] | undefined;
+        let clone: unknown[] | undefined;
         for (const anotherKey of choicesByIndex[key]) {
           clone = choicesByIndex[key].slice();
-          if ((indexesOfSameElements[anotherKey] || []).indexOf(anotherKey) >= 0) {
-            clone = clone.concat(indexesOfSameElements[anotherKey]);
+          if ((indexesOfSameElements[anotherKey as number] || []).indexOf(anotherKey as number) >= 0) {
+            clone = clone.concat(indexesOfSameElements[anotherKey as number]);
           }
         }
         choicesByIndex[key] = clone ? clone.filter((el, idx) => clone!.indexOf(el) === idx) : [];

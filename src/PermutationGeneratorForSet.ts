@@ -1,6 +1,6 @@
 type ChoiceEntry = { index: number; length: number };
 
-export class PermutationGeneratorForSet {
+export class PermutationGeneratorForSet<T> {
   choicesArraysInitial: number[][] = [];
   choicesArrays: number[][] = [];
   size = 0;
@@ -15,12 +15,12 @@ export class PermutationGeneratorForSet {
   visitedDict: Record<number, boolean> = {};
 
   constructor(
-    private elementList: any[],
+    private elementList: T[],
     private indexList: number[],
     private choicesByIndex?: Record<string, number[]>,
     private indexesOfSameElements?: Record<number, number[]>,
     private actualOrderOfElements?: number[],
-    private passFunction?: (items: any[]) => boolean,
+    private passFunction?: (items: T[]) => boolean,
   ) {
     this.actualOrderOfElements =
       this.actualOrderOfElements ||
@@ -55,7 +55,7 @@ export class PermutationGeneratorForSet {
     const actualOrderedNewPerm = this.revertResultPermToInitialOrder(newPerm);
 
     if (this.passFunction) {
-      const elArray: any[] = [];
+      const elArray: T[] = [];
       actualOrderedNewPerm.forEach((elInd, i) => (elArray[i] = this.elementList[elInd!]));
       const passed = this.passFunction(elArray.filter((x) => x !== undefined && x !== null)); // Remove nulls, since some array elements are undefined when building
       return passed;

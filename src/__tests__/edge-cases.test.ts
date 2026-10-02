@@ -16,8 +16,7 @@ test('Empty list with next', () => {
 test('Empty list with generator', () => {
   let customPerm = new CustomPermutation([], {}, {});
   let count = 0;
-  let gen: any = null;
-  gen = customPerm.generator();
+  const gen = customPerm.generator();
   while (true) {
     let next = gen.next();
     if (next.done) {
@@ -45,8 +44,7 @@ test('One element list with next', () => {
 test('One element list with generator', () => {
   let customPerm = new CustomPermutation(['a'], {}, {});
   let count = 0;
-  let gen: any = null;
-  gen = customPerm.generator();
+  const gen = customPerm.generator();
   while (true) {
     let next = gen.next();
     if (next.done) {
